@@ -229,3 +229,8 @@ function o(){
 function rec() {
   source ~/.zshrc
 }
+
+# sync conf
+function sc(){
+  cp .zshrc ~/.zshrc
+}
