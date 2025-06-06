@@ -232,5 +232,5 @@ function rec() {
 
 # sync conf
 function sc(){
-  cp .zshrc ~/.zshrc
+  cp .zshrc ~/.zshrc && source ~/.zshrc
 }
