@@ -151,7 +151,10 @@ notepad $PROFILE
 ```shell
 . $PROFILE
 ```
+## 历史版本
+- [https://github.com/zhuddan/WindowsPowerShell](https://github.com/zhuddan/WindowsPowerShell)
+- [https://github.com/zhuddan/my-mac-config](https://github.com/zhuddan/my-mac-config)
 
-参考
+## 参考
 - [ni](https://github.com/antfu-collective/ni)
 - [http-server](https://github.com/http-party/http-server)
