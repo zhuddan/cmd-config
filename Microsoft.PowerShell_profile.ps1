@@ -1,3 +1,4 @@
+# @see https://github.com/zhuddan/cmd-config.git
 
 # https://github.com/antfu-collective/ni
 if (-not (Test-Path $profile)) {

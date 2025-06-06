@@ -1,3 +1,5 @@
+# @see https://github.com/zhuddan/cmd-config.git
+
 # vscode code cmd 配置
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
