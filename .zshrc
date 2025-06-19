@@ -231,19 +231,19 @@ function projects() {
 }
 
 function labs() {
-    o ~/labs
+    o ~/projects/labs
 }
 
 function temporary() {
-    o ~/temporary
+    o ~/projects/temporary
 }
 
 function workspace() {
-    o ~/workspace
+    o ~/projects/workspace
 }
 
 function zd() {
-    o ~/zd
+    o ~/projects/zd
 }
 
 # source ~/.zshrc
