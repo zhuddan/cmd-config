@@ -227,27 +227,27 @@ function o(){
 
 # 常用目录
 function projects() {
-    o ~/projects
+    cd ~/projects
 }
 
 function labs() {
-    o ~/projects/labs
+    cd ~/projects/labs
 }
 
 function temporary() {
-    o ~/projects/temporary
+    cd ~/projects/temporary
 }
 
 function workspace() {
-    o ~/projects/workspace
+    cd ~/projects/workspace
 }
 
 function zd() {
-    o ~/projects/zd
+    cd ~/projects/zd
 }
 
 function data() {
-    o ~/data
+    cd ~/data
 }
 
 # source ~/.zshrc
