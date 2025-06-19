@@ -225,6 +225,27 @@ function o(){
   fi
 }
 
+# 常用目录
+function projects() {
+    o ~/projects
+}
+
+function labs() {
+    o ~/labs
+}
+
+function temporary() {
+    o ~/temporary
+}
+
+function workspace() {
+    o ~/workspace
+}
+
+function zd() {
+    o ~/zd
+}
+
 # source ~/.zshrc
 function rec() {
   source ~/.zshrc
