@@ -70,8 +70,8 @@ function s() {
     return 1
   fi
 
-  # 提取所有 script 名称（仅从 scripts 部分）
-  local scripts=($(sed -n '/"scripts"\s*:/,/^[^ ]*[^,{]*[},]/p' package.json | grep -Eo '"[^"]+"\s*:' | sed 's/"//g;s/://'))
+  # 安全提取 scripts 名称
+  local scripts=($(jq -r '.scripts | keys[]' package.json 2>/dev/null))
 
   if [[ ${#scripts[@]} -eq 0 ]]; then
     echo "⚠️ No scripts section found in package.json."
@@ -258,4 +258,5 @@ function rec() {
 # sync conf
 function sc(){
   cp .zshrc ~/.zshrc && source ~/.zshrc
+  echo "\e[32m✅ “cp .zshrc ~/.zshrc && source ~/.zshrc” 操作成功！\e[0m"
 }

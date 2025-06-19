@@ -1,0 +1,31 @@
+{
+  "name": "cmd-config",
+  "version": "1.0.0",
+  "description": "常用终端命令/别名的配置",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo build",
+    "format": "echo format",
+    "lint": "echo lint",
+    "serve": "echo serve",
+    "start": "echo start",
+    "start:debug": "echo start:debug",
+    "start:dev": "echo start:dev",
+    "start:prod": "echo start:prod",
+    "test": "echo test",
+    "test:cov": "echo test:cov",
+    "test:debug": "echo test:debug",
+    "test:e2e": "echo test:e2e",
+    "test:watch": "echo test:watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhuddan/cmd-config.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhuddan/cmd-config/issues"
+  },
+  "homepage": "https://github.com/zhuddan/cmd-config#readme"
+}
