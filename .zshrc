@@ -246,6 +246,10 @@ function zd() {
     o ~/projects/zd
 }
 
+function data() {
+    o ~/data
+}
+
 # source ~/.zshrc
 function rec() {
   source ~/.zshrc
