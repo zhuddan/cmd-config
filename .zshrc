@@ -260,3 +260,29 @@ function sc(){
   cp .zshrc ~/.zshrc && source ~/.zshrc
   echo "\e[32m✅ “cp .zshrc ~/.zshrc && source ~/.zshrc” 操作成功！\e[0m"
 }
+
+function rename_with_prefix() {
+  if [[ -z "$1" ]]; then
+    echo "用法: rename_with_prefix 前缀"
+    return 1
+  fi
+
+  local prefix="$1"
+  local i=1
+
+  for file in *.*; do
+    [[ -f "$file" ]] || continue
+
+    local ext="${file##*.}"
+    local new_name="${prefix}_${i}.${ext}"
+
+    # 避免重名覆盖
+    if [[ -e "$new_name" ]]; then
+      echo "⚠️ 已存在文件 $new_name，跳过 $file"
+    else
+      mv -- "$file" "$new_name"
+      echo "✅ $file → $new_name"
+      ((i++))
+    fi
+  done
+}
