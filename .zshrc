@@ -263,18 +263,20 @@ function sc(){
 
 function rename_with_prefix() {
   if [[ -z "$1" ]]; then
-    echo "用法: rename_with_prefix 前缀"
+    echo "用法：rename_with_prefix 前缀"
     return 1
   fi
 
   local prefix="$1"
-  local i=1
+  local i=0
 
   for file in *.*; do
     [[ -f "$file" ]] || continue
 
     local ext="${file##*.}"
     local new_name="${prefix}_${i}.${ext}"
+    
+    echo "2321242"
 
     # 避免重名覆盖
     if [[ -e "$new_name" ]]; then
