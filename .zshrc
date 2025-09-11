@@ -285,5 +285,7 @@ function rename_with_prefix() {
     fi
   done
 }
-
-
+# npm publish public
+function pub(){
+  npm publish --access=public
+}
