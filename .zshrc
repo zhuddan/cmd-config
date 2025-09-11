@@ -187,11 +187,8 @@ function g() {
     echo "Cloning repository '$repoUrl'..."
     git clone "$repoUrl"
   else
-    local targetBase="$HOME/projects"
-    local targetDir="$targetBase/$dir"
-    mkdir -p "$targetBase"
-    echo "Cloning repository '$repoUrl' into directory '$targetDir'..."
-    git clone "$repoUrl" "$targetDir"
+    echo "Cloning repository '$repoUrl' into directory '$dir'..."
+    git clone "$repoUrl" "$dir"
   fi
 }
 
@@ -288,3 +285,5 @@ function rename_with_prefix() {
     fi
   done
 }
+
+
