@@ -221,16 +221,6 @@ function tag() {
   fi
 }
 
-# 发布公共包
-function pub() {
-   npm publish --access public
-}
-
-# 发布私有包
-function pubres() {
-   npm publish --access restricted
-}
-
 #  http-server
 function hs() {
   local path="$1"
