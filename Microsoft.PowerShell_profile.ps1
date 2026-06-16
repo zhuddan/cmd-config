@@ -216,16 +216,16 @@ function rmrf {
     )
 
     if (-not (Test-Path $path)) {
-        Write-Host "路径不存在：$path"
+        Write-Host "Path not found: $path"
         return
     }
 
-    $confirm = Read-Host "确认强制删除 '$path'（含子目录）？输入 Y 继续"
+    $confirm = Read-Host "Force delete '$path' (including subfolders)? Type Y to continue"
     if ($confirm -ieq 'Y') {
         Remove-Item $path -Recurse -Force
-        Write-Host "已删除：$path"
+        Write-Host "Deleted: $path"
     } else {
-        Write-Host "已取消。"
+        Write-Host "Cancelled."
     }
 }
 
