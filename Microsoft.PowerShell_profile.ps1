@@ -1,4 +1,3 @@
-# @see https://github.com/zhuddan/cmd-config.git
 
 # https://github.com/antfu-collective/ni
 if (-not (Test-Path $profile)) {
@@ -139,8 +138,6 @@ function s {
     }
 }
 
-Set-Alias -Name serve -Value s
-
 # 特殊的 npm script 
 function tag {
     param(
@@ -165,6 +162,8 @@ function pub {
 function pubres {
    npm publish --access restricted
 }
+
+Set-Alias -Name serve -Value s
 
 #  http-server
 function hs {
@@ -260,7 +259,33 @@ function zd {
     Set-Location %USERPROFILE%
 }
 
-# . $PROFILE reload config
-function rec {
+# # . $PROFILE
+function reload {
   . $PROFILE
+}
+
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+# $env:ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+# $env:ANTHROPIC_AUTH_TOKEN="sk-5951632369f8496db7169f82f19797a4"
+# $env:ANTHROPIC_MODEL="deepseek-chat"
+# $env:ANTHROPIC_SMALL_FAST_MODEL="deepseek-chat"
+
+# git 别名 (Oh My Zsh 风格)
+. (Join-Path $PSScriptRoot "aliases-git.ps1")
+
+
+
+# git
+function cc {
+    claude
 }
