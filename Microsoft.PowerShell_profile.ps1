@@ -251,6 +251,10 @@ function .. {
     Set-Location ..
 }
 
+function pro {
+    Set-Location D:\projects
+}
+
 function fork {
     Set-Location D:\projects\fork
 }
