@@ -285,7 +285,8 @@ if (Test-Path($ChocolateyProfile)) {
 
 
 
-# git
+# claude
 function cc {
     claude
 }
+
