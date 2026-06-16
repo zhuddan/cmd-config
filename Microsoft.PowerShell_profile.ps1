@@ -208,6 +208,27 @@ function o {
     start .
 }
 
+# 强制删除目录（含子目录），删除前需输入 Y 确认
+function rmrf {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$path  # 要删除的目录
+    )
+
+    if (-not (Test-Path $path)) {
+        Write-Host "路径不存在：$path"
+        return
+    }
+
+    $confirm = Read-Host "确认强制删除 '$path'（含子目录）？输入 Y 继续"
+    if ($confirm -ieq 'Y') {
+        Remove-Item $path -Recurse -Force
+        Write-Host "已删除：$path"
+    } else {
+        Write-Host "已取消。"
+    }
+}
+
 # 清理依赖与锁文件缓存
 function cleanup {
     del .\package-lock.json, .\yarn.lock, .\bun.lockb, .\pnpm-lock.yaml -ErrorAction SilentlyContinue
