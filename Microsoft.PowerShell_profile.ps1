@@ -276,10 +276,6 @@ function zhuddan {
 }
 
 function zd {
-    Set-Location D:\projects\zhuddan
-}
-
-function zd {
     Set-Location %USERPROFILE%
 }
 
