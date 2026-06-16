@@ -1,5 +1,8 @@
 
+# ============================================================
+# 初始化：移除 ni 别名（ni 来自 antfu 的工具集）
 # https://github.com/antfu-collective/ni
+# ============================================================
 if (-not (Test-Path $profile)) {
   New-Item -ItemType File -Path (Split-Path $profile) -Force -Name (Split-Path $profile -Leaf)
 }
@@ -12,7 +15,10 @@ if ($profileContent -notcontains $profileEntry) {
 Remove-Item Alias:ni -Force -ErrorAction Ignore
 
 
-# 别名
+# ============================================================
+# npm 脚本别名
+# ============================================================
+
 # npm run dev
 function d {
     param(
@@ -27,7 +33,6 @@ function d {
         nr "dev:$projectName"
     }
 }
-
 Set-Alias -Name dev -Value d
 
 # npm run watch
@@ -44,7 +49,6 @@ function w {
         nr "watch:$projectName"
     }
 }
-
 Set-Alias -Name watch -Value w
 
 # npm run test
@@ -61,7 +65,6 @@ function t {
         nr "test:$projectName"
     }
 }
-
 Set-Alias -Name test -Value t
 
 # npm run build
@@ -78,11 +81,9 @@ function b {
         nr "build:$projectName"
     }
 }
-
 Set-Alias -Name build -Value b
 
-# s
-# nr serve / nr start 
+# nr serve / nr start，自动在 serve、start、serve:xxx、start:xxx 中查找可用脚本
 function s {
     param (
         [string]$projectName  # projectName 参数用于确定要执行的命令
@@ -92,7 +93,7 @@ function s {
     if (Test-Path "package.json") {
         # 读取 package.json 文件
         $packageJson = Get-Content -Raw -Path "package.json" | ConvertFrom-Json
-        
+
         # 检查 scripts 字段是否存在
         if ($packageJson.scripts) {
             # 默认命令，如果没有提供 projectName，默认执行 serve 或 start
@@ -125,20 +126,21 @@ function s {
 
             # 如果找到命令，则执行
             if ($foundCommand) {
-                Write-Host "Found command '$foundCommand'. Running 'nr $foundCommand'..."
+                Write-Host "找到命令 '$foundCommand'，正在执行 'nr $foundCommand'..."
                 nr $foundCommand
             } else {
-                Write-Host "No matching command ('serve', 'start', or 'serve:$projectName', 'start:$projectName') found in scripts."
+                Write-Host "未在 scripts 中找到匹配的命令（'serve'、'start' 或 'serve:$projectName'、'start:$projectName'）。"
             }
         } else {
-            Write-Host "No scripts section found in package.json."
+            Write-Host "package.json 中没有 scripts 字段。"
         }
     } else {
-        Write-Host "No package.json found in the current directory."
+        Write-Host "当前目录下没有找到 package.json。"
     }
 }
+Set-Alias -Name serve -Value s
 
-# 特殊的 npm script 
+# 特殊的 npm script：nr tag
 function tag {
     param(
         [string]$projectName  # projectName 是可选参数
@@ -153,6 +155,11 @@ function tag {
     }
 }
 
+
+# ============================================================
+# npm 发布
+# ============================================================
+
 # 发布公共包
 function pub {
    npm publish --access public
@@ -163,12 +170,15 @@ function pubres {
    npm publish --access restricted
 }
 
-Set-Alias -Name serve -Value s
 
-#  http-server
+# ============================================================
+# 常用工具
+# ============================================================
+
+# http-server：启动静态服务器（禁用缓存并开启 CORS）
 function hs {
     param(
-        [string]$path 
+        [string]$path
     )
     if (-not $path) {
         http-server -c-0 --cors
@@ -177,64 +187,43 @@ function hs {
     }
 }
 
-
-# vscode 打开当前目录并且自动下载依赖
+# vscode 打开当前目录并自动安装依赖
 function vs {
-
     # 使用 VS Code 打开当前目录
-    Write-Host "Opening VS Code..."
+    Write-Host "正在打开 VS Code..."
     code .
-    
+
     # 检查当前目录是否有 package.json 文件
     if (Test-Path "package.json") {
         # 如果有 package.json，执行 ni 安装依赖
-        Write-Host "package.json found. Installing dependencies using ni..."
+        Write-Host "检测到 package.json，正在使用 ni 安装依赖..."
         ni
-
     } else {
-        Write-Host "No package.json found."
+        Write-Host "当前目录下没有找到 package.json。"
     }
 }
 
-# g: git clone 简化命令
-function g {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]$repoUrl,  # 必填参数，表示要克隆的 Git 仓库 URL
-
-        [string]$dir  # 可选参数，表示克隆到的目录
-    )
-
-    # 如果 dir 参数为空，执行 git clone $repoUrl
-    if (-not $dir) {
-        Write-Host "Cloning repository '$repoUrl'..."
-        git clone $repoUrl
-    } else {
-        # 如果 dir 参数不为空，执行 git clone $repoUrl $dir
-        Write-Host "Cloning repository '$repoUrl' into directory '$dir'..."
-        git clone $repoUrl $dir
-    }
+# 打开当前目录（资源管理器）
+function o {
+    start .
 }
 
-# git
-function go {
-  git remote -v
-}
-
-# 清理缓存
+# 清理依赖与锁文件缓存
 function cleanup {
     del .\package-lock.json, .\yarn.lock, .\bun.lockb, .\pnpm-lock.yaml -ErrorAction SilentlyContinue
     Remove-Item -Recurse -Force .\node_modules -ErrorAction SilentlyContinue
 }
 
 
+# ============================================================
+# Git 别名（Oh My Zsh 风格，全部定义在 aliases-git.ps1 中）
+# ============================================================
+. (Join-Path $PSScriptRoot "aliases-git.ps1")
 
-# 打开当前目录
-function o {
-    start .
-}
 
-# 常用目录
+# ============================================================
+# 常用目录跳转
+# ============================================================
 function fork {
     Set-Location D:\projects\fork
 }
@@ -259,34 +248,25 @@ function zd {
     Set-Location %USERPROFILE%
 }
 
-# # . $PROFILE
+
+# ============================================================
+# 其他
+# ============================================================
+
+# 重新加载配置文件（等价于 . $PROFILE）
 function reload {
   . $PROFILE
 }
-
-
-# Import the Chocolatey Profile that contains the necessary code to enable
-# tab-completions to function for `choco`.
-# Be aware that if you are missing these lines from your profile, tab completion
-# for `choco` will not function.
-# See https://ch0.co/tab-completion for details.
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
-
-# $env:ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
-# $env:ANTHROPIC_AUTH_TOKEN="sk-5951632369f8496db7169f82f19797a4"
-# $env:ANTHROPIC_MODEL="deepseek-chat"
-# $env:ANTHROPIC_SMALL_FAST_MODEL="deepseek-chat"
-
-# git 别名 (Oh My Zsh 风格)
-. (Join-Path $PSScriptRoot "aliases-git.ps1")
-
-
 
 # claude
 function cc {
     claude
 }
 
+# 导入 Chocolatey 配置，启用 choco 的 Tab 补全
+# 如果配置中缺少这几行，choco 的 Tab 补全将无法使用
+# 详见 https://ch0.co/tab-completion
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
