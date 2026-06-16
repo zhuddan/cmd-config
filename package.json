@@ -2,8 +2,11 @@
   "name": "cmd-config",
   "version": "1.0.0",
   "description": "常用终端命令/别名的配置",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "sync:ps": "node scripts/sync-ps-profile.mjs",
+    "sync:zsh": "node scripts/sync-zshrc.mjs",
     "build": "echo build",
     "format": "echo format",
     "lint": "echo lint",
