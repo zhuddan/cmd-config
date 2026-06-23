@@ -301,3 +301,10 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
+function mylint {
+  $config = "$HOME\.config\eslint\eslint.config.mjs"
+  $prefix = "$HOME\.config\eslint"
+  if ($args.Count -eq 0) { $args = @("src/") }
+  npx --prefix $prefix eslint --config $config --fix @args
+}
